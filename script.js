@@ -265,7 +265,7 @@ function displayResult(site) {
 
     const link = document.getElementById('res-link');
     link.href = site.url;
-    link.innerHTML = site.id === "M01" ? '<i class="fa-solid fa-rocket"></i> このオーパーツを起動する' : '<i class="fa-solid fa-door-open"></i> Wayback Machineで遺跡を視察';
+    link.innerHTML = site.id === "M01" ? '<i class="fa-solid fa-rocket"></i> このオーパーツを起動する' : '<i class="fa-solid fa-door-open"></i> 遺跡を視察';
     link.style.background = site.id === "M01" ? "#ff00ff" : "#10b981";
     site.id === "M01" ? document.getElementById('res-card').classList.add('mitsuki-alert') : document.getElementById('res-card').classList.remove('mitsuki-alert');
 
