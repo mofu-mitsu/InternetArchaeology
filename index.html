@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNTX973GET"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNTX973GET');
+    </script>
+    <!-- 🔍 SEO対策：こだわりの検索用メタタグ -->
+    <title>Internet Archaeology - インターネット考古学 | 失われたWebサイトを発掘するレトロネット博物館</title>
+    <meta name="description" content="失われた昔のインターネット（個人サイト、Flash、お絵描き掲示板、テキストサイト）をWayback Machineと連携して発掘・収集する、レトロネット考古学シミュレーターゲーム。あの頃の懐かしいWeb文化をコレクションしよう！">
+    <meta name="keywords" content="インターネット考古学, Internet Archaeology, レトロネット, 個人サイト, 個人ホームページ, Flash, テキストサイト, 昔のインターネット, ジオシティーズ, 前略プロフィール, 侍魂, Wayback Machine, ネット歴史">
+    <meta name="author" content="M&2K">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://mofu-mitsu.github.io/InternetArchaeology/">
+
+    <!-- 🏺 絵文字Favicon（SVGデータリンク） -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏺</text></svg>">
+
+    <!-- 🌐 SNSシェア用：OGP設定 -->
+    <meta property="og:show_faces" content="false">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mofu-mitsu.github.io/InternetArchaeology/">
+    <meta property="og:title" content="Internet Archaeology - インターネット考古学">
+    <meta property="og:description" content="失われたインターネットを発掘するレトロネット博物館シミュレーター。個人サイトやFlash、懐かしのWeb文化をコレクションしよう！">
+    <meta property="og:image" content="https://mofu-mitsu.github.io/InternetArchaeology/ogp.png">
+    <meta property="og:site_name" content="M&2K 考古学研究所">
+    <meta property="og:locale" content="ja_JP">
+
+    <!-- 🐦 Twitter(X) Card設定 -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Internet Archaeology - インターネット考古学">
+    <meta name="twitter:description" content="失われた過去のWebサイトを発掘して、自分だけのインターネット博物館を作ろう！">
+    <meta name="twitter:image" content="https://mofu-mitsu.github.io/InternetArchaeology/ogp.png">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- うざいランダム広告枠（上部） -->
+    <div id="ad-banner-top" class="vintage-ad blink-ad hidden">
+        <a href="#" id="ad-link-top" target="_blank">
+            <span class="ad-badge">楽天PR</span>
+            <span id="ad-text-top">💰 広告を取得中...</span>
+        </a>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-earth-americas"></i> Internet Archaeology</h1>
+            <p class="subtitle">失われたインターネットを発掘する</p>
+
+            <!-- 遊び方説明 (初見ユーザー向け動線) -->
+            <div class="instruction-box">
+                <h3><i class="fa-solid fa-circle-question"></i> 遊び方</h3>
+                <p>ここはかつてのインターネットの地層を発掘する研究所です。<br>
+                まずは<strong>【発掘開始】</strong>ボタンを押して「表層」からランダムに遺跡を発掘しましょう！ポイントが貯まると、特定の文化が眠る新しい地層（カテゴリ）を選べるようになります。</p>
+            </div>
+
+            <div class="status-panel">
+                <div class="rank-display"><i class="fa-solid fa-medal"></i> 称号: <span id="rank-name">見習い発掘者</span></div>
+                <div class="point-display"><i class="fa-solid fa-gem"></i> <span id="points">0</span> pt</div>
+            </div>
+            
+            <div class="progress-bar-container">
+                <div class="progress-text">図鑑コンプリート率: <span id="comp-rate">0</span>% (<span id="found-count">0</span>/<span id="total-count">0</span>)</div>
+                <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+            </div>
+
+            <div class="share-buttons mt-10">
+                <button id="share-rank-btn" class="share-btn x-btn"><i class="fa-solid fa-share-nodes"></i> 研究所をシェア</button>
+            </div>
+        </header>
+
+        <main>
+            <!-- 発掘探査機 -->
+            <section class="dig-section">
+                <div class="category-select">
+                    <label for="category" class="blink-label"><i class="fa-solid fa-hand-pointer"></i> ↓ 探査する地層を選んでね！</label>
+                    <select id="category">
+                        <option value="ランダム">🌐 表層 (完全ランダムガチャ)</option>
+                        <option value="古代プロフ" disabled>🔒 古代プロフ層 (100ptで解放)</option>
+                        <option value="テキストサイト" disabled>🔒 テキストサイト層 (300ptで解放)</option>
+                        <option value="Flash" disabled>🔒 Flash遺跡層 (500ptで解放)</option>
+                        <option value="お絵かき掲示板" disabled>🔒 お絵かき掲示板層 (800ptで解放)</option>
+                        <option value="VIP" disabled>🔒 伝説のSSR遺跡層 (1500ptで解放)</option>
+                        <option value="M2K" disabled>🔒 謎の異常空間 (3000ptで解放)</option>
+                    </select>
+                </div>
+                <button id="dig-btn" class="dig-btn"><i class="fa-solid fa-hammer"></i> 発掘開始</button>
+            </section>
+
+            <!-- 結果表示エリア -->
+            <section id="result-area" class="result-area hidden">
+                <div class="result-card" id="res-card">
+                    <div class="rarity-badge" id="res-rarity">Epic</div>
+                    <h2 id="res-title">発掘中...</h2>
+                    
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <i class="fa-regular fa-calendar-days"></i> <span class="label">推定年:</span> <span class="value" id="res-year">---</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fa-solid fa-tags"></i> <span class="label">分類:</span> <span class="value" id="res-category">---</span>
+                        </div>
+                    </div>
+
+                    <div class="description-box">
+                        <h3><i class="fa-solid fa-scroll"></i> 遺跡説明</h3>
+                        <p id="res-desc">---</p>
+                    </div>
+
+                    <a id="res-link" href="#" target="_blank" class="visit-btn"><i class="fa-solid fa-door-open"></i> Wayback Machineで遺跡を視察</a>
+                    
+                    <!-- 本日の発掘支援物資（楽天広告） -->
+                    <div id="ad-banner-card" class="vintage-ad mt-10">
+                        <h3>🏺 本日の発掘支援物資</h3>
+                        <a href="#" id="ad-link-card" target="_blank" class="ad-flex">
+                            <img id="ad-img-card" src="" alt="物資画像" class="ad-img hidden">
+                            <span id="ad-text-card">📦 物資を手配中...</span>
+                        </a>
+                    </div>
+
+                    <button id="share-res-btn" class="share-btn x-btn mt-10"><i class="fa-solid fa-share-nodes"></i> この遺跡を共有</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- タブメニュー（図鑑と実績） -->
+        <div class="tabs mt-10">
+            <button class="tab-btn active" onclick="switchTab('zukan')"><i class="fa-solid fa-book"></i> 発掘図鑑</button>
+            <button class="tab-btn" onclick="switchTab('achievements')"><i class="fa-solid fa-trophy"></i> 実績</button>
+        </div>
+
+        <section id="zukan-section" class="tab-content active">
+            <div id="zukan-grid" class="zukan-grid">
+                <!-- 図鑑アイテムがJSで生成される -->
+            </div>
+        </section>
+
+        <section id="achievements-section" class="tab-content hidden">
+            <ul id="achievement-list" class="achievement-list">
+                <!-- 実績がJSで生成される -->
+            </ul>
+        </section>
+    </div>
+    
+    <!-- 🔨 物理発掘アニメーション -->
+    <div id="digging-overlay" class="hidden">
+        <div class="digging-animation">
+            <div id="hammer" class="hammer">🔨</div>
+            <div id="rock" class="rock">🪨</div>
+            <div id="spark" class="spark hidden">💥</div>
+        </div>
+        <div class="digging-text">発掘中...</div>
+    </div>
+
+    <!-- トースト通知 -->
+    <div id="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
